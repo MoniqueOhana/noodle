@@ -10,7 +10,7 @@ const Search = () => {
 
 
     const API_Key = 
-    "4f0062523fc30ce49d3270f3805441fb782e3d1e3de9b95f7b3e11f0cf91453e";
+    "";
 
 
     const handleSubmit = async (e) => {
