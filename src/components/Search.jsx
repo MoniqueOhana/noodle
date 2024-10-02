@@ -2,16 +2,12 @@ import axios from "axios";
 import { useState } from "react";
 import Nood from "../assets/nood.png";
 
+
 const Search = () => {
     const [query, setQuery]  = useState("");
     const [results, setResults] = useState([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-
-
-    const API_Key = 
-    "";
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,36 +15,29 @@ const Search = () => {
             return;
         }
         setLoading(true);
-
-        const URL = 'https://serpapi.com/search.json'
-
-        try {const resp = await axios.get(URL,{
-            params: {
-                q: query,
-                engine: "google",
-                google_domain: "google.com.br",
-                api_key: API_Key,
-                hl: "pt-br",
-                gl: "br",
-                num: 10,
-            },
-        });
-        const data = await resp.json();
+        try {
+            const URL = "http://localhost:4000/search"
+            const resp = await axios.get(URL, {
+                params: {
+                    query: query
+                }
+            })
+            const data = resp.data.organic_results || [];
+            setResults(data);
         setResults (data);
     } catch (err) {
         console.error(err.message);
-        setError("Ocorreu um erro inesperado");
+        setError("Ocorreu um erro inesperado")
     } finally {
         setLoading(false);
     }     
     };
     
-
     return (
         <div className="App">
             <div className="Logo">
                 <h1>Noodle</h1>
-                <img src={Nood} alt="Nood" />
+                <img src={Nood} alt="Nood" style={{ width: '200px', height: '200px'}} />
             </div>
             <form onSubmit={handleSubmit}>
                 <input type="text" name="query" placeholder="Digite sua busca" onChange={(e) => setQuery(e.target.value)} />
@@ -79,7 +68,7 @@ const Search = () => {
                 </ul>
             </div>
         </div>
-        );
+        )
     };
 
     export default Search;
