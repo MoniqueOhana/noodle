@@ -10,7 +10,7 @@ app.use(cors());
 
 app.get("/search", async (req,res) => {
     const {query} = req.query
-    const API_KEY = "4f0062523fc30ce49d3270f3805441fb782e3d1e3de9b95f7b3e11f0cf91453e"
+    const API_KEY = ""
     const URL = "https://serpapi.com/search.json";
     try {
         const response = await axios.get(URL, {
